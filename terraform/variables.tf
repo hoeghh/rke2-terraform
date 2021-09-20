@@ -1,8 +1,5 @@
 ### Common configuration ###
-variable "datacenter_name" {
-  description = "Name of the datacenter"
-  default = "dc1"
-}
+
 variable "os_image" {
   description = "Define the source to the os image used by Kubernetes"
   default = "http://cloud-images.ubuntu.com/releases/bionic/release-20191008/ubuntu-18.04-server-cloudimg-amd64.img"
@@ -11,11 +8,7 @@ variable "kubernetes_pool_path" {
   description = "Define the path to libvirt pool"
   default = "/tmp/terraform-provider-libvirt-pool-kubernetes"
 }
-variable "kubernetes_drivers" {
-  description = "List of drivers that should be enabled on the Kubernetes clients"
-  type    = list(string)
-  default = ["docker", "raw_exec", "java"]
-}
+
 
 
 ### Kubernetes server configuration ###

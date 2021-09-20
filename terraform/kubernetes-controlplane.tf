@@ -80,7 +80,7 @@ resource "libvirt_domain" "domain-kubernetes-server" {
       host     = "${self.network_interface.0.addresses.0}"
       type     = "ssh"
       user     = "kubernetes"
-      password = "softica"
+      password = "eficode"
     }
 #    connection {
 #      type     = "ssh"
