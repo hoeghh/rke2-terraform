@@ -1,6 +1,11 @@
 os_image = "/cdimages/ubuntu-18.04-server-cloudimg-amd64.img"
 kubernetes_pool_path = "/vm-disks/terraform-provider-libvirt-pool-kubernetes"
 
+kubernetes_node_ssh_password = "$6$rounds=4096$4enF8gvooWCWnmRj$hcJC2D6Uf3dN6EkxuHrZ0hzOOLnrskZaDYqku.5gbzY0K9LwTPk/1.4.FgxR30I6YdS.0u5sV/saTSamzoL0U0"
+kubernetes_node_ssh_username = "kubernetes"
+
+kubernetes_join_token = "secrettoken"
+
 kubernetes_server_ips = ["10.18.3.10"]
 kubernetes_server_enable_client = false
 kubernetes_server_vcpu = 2

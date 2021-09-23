@@ -9,12 +9,28 @@ variable "kubernetes_pool_path" {
   default = "/tmp/terraform-provider-libvirt-pool-kubernetes"
 }
 
+variable "kubernetes_node_ssh_password"{
+  description = "SSH password on vm"
+  default = "$6$rounds=4096$pdXIzh9u9YxSJGTf$d8X9IsJye2.lrD0ekP3aTBgAtlbOeI8E/JRJBmMKpniIyh28hXGQ8rVAQD2/0x7QjkmbClUccmHCCACg59MWF/"
+}
+variable "kubernetes_node_ssh_password_plain"{
+  description = "SSH password on vm in plain text"
+  default = "softica"
+}
+variable "kubernetes_node_ssh_username"{
+  description = "SSH username on vm"
+  default = "kubernetes"
+}
 
+variable "kubernetes_join_token"{
+  description = "Token used to join cluster"
+  default = "secrettoken"
+}
 
 ### Kubernetes server configuration ###
 variable "kubernetes_server_name" {
   description = "The name of the Kubernetes server"
-  default = "kubernetes-server"
+  default = "k8s-server"
 }
 variable "kubernetes_server_ips" {
   description = "List of Kubernetes server ip's"
@@ -43,7 +59,7 @@ variable "kubernetes_server_disk_size" {
 ### Kubernetes worker configuration ###
 variable "kubernetes_worker_name" {
   description = "The name of the Kubernetes worker node"
-  default = "kubernetes-worker"
+  default = "k8s-worker"
 }
 variable "kubernetes_worker_ips" {
   description = "List of Kubernetes worker ip's"

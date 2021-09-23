@@ -29,13 +29,16 @@ data "template_file" "worker_user_data" {
     )),
     KUBERNETES_SERVER_JOIN_IP = element(var.kubernetes_server_ips, 0),
     KUBERNETES_IP = "${element(var.kubernetes_worker_ips, count.index)}",
+    KUBERNETES_NODE_SSH_PASSWORD = var.kubernetes_node_ssh_password,
+    KUBERNETES_NODE_SSH_USERNAME = var.kubernetes_node_ssh_username,
+    KUBERNETES_JOIN_TOKEN = var.kubernetes_join_token,
   }
 }
 
 # Create the machine
 resource "libvirt_domain" "domain-kubernetes-worker" {
   count  = length(var.kubernetes_worker_ips)
-  name   = "kubernetes-worker-${count.index}"
+  name   = "${var.kubernetes_worker_name}-${count.index}"
   memory = var.kubernetes_worker_memory
   vcpu   = var.kubernetes_worker_vcpu
 
@@ -77,15 +80,9 @@ resource "libvirt_domain" "domain-kubernetes-worker" {
     connection {
       host     = "${self.network_interface.0.addresses.0}"
       type     = "ssh"
-      user     = "kubernetes"
-      password = "eficode"
+      user     = var.kubernetes_node_ssh_username
+      password = var.kubernetes_node_ssh_password_plain
     }
-#    connection {
-#      type     = "ssh"
-#      user     = "hashicorp"
-#      password = "${var.root_password}"
-#      host     = "${var.host}"
-#    }
     inline = [
       "cloud-init status --wait > /dev/null 2>&1",
     ]

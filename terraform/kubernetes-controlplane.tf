@@ -30,6 +30,9 @@ data "template_file" "server_user_data" {
     KUBERNETES_SERVER_COUNT = length(var.kubernetes_server_ips),
     KUBERNETES_SERVER_JOIN_IP = element(var.kubernetes_server_ips, 0),
     KUBERNETES_SERVER_ENABLE_CLIENT = var.kubernetes_server_enable_client,
+    KUBERNETES_NODE_SSH_PASSWORD = var.kubernetes_node_ssh_password,
+    KUBERNETES_NODE_SSH_USERNAME = var.kubernetes_node_ssh_username,
+    KUBERNETES_JOIN_TOKEN = var.kubernetes_join_token,
   }
 }
 
@@ -79,15 +82,9 @@ resource "libvirt_domain" "domain-kubernetes-server" {
     connection {
       host     = "${self.network_interface.0.addresses.0}"
       type     = "ssh"
-      user     = "kubernetes"
-      password = "eficode"
+      user     = var.kubernetes_node_ssh_username
+      password = var.kubernetes_node_ssh_password_plain
     }
-#    connection {
-#      type     = "ssh"
-#      user     = "hashicorp"
-#      password = "${var.root_password}"
-#      host     = "${var.host}"
-#    }
     inline = [
       "cloud-init status --wait > /dev/null 2>&1",
     ]
